@@ -55,5 +55,14 @@ Compile to:
 ## 3. Operators
 ### 3.1 Arithmetic Operators
 + `+`
-    + `2 + 3` will give `5`
-    + `2px + 3` will give `5px`
+  + `2 + 3` will give `5`
+  + `2px + 3` will give `5px`
++ `-`
+  + `2 - 3` will give `-1`
+  + `2px - 3` will give `-1px`
++ `*`
+  + `2 * 3` will give `6`
+  + `2px * 3` will give `6px`
++ `/`
+  + `2 / 3` will give `0.6666666666666666`
+  + `2px / 3` will give `0.6666666666666666px`
