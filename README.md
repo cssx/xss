@@ -54,5 +54,5 @@ Compile to:
 
 ## 3. Operators
 ### 3.1 Arithmetic Operators
-```+```:
+```+```: ```2 + 3```
 
