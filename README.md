@@ -54,15 +54,53 @@ Compile to:
 
 ## 3. Operators
 ### 3.1 Arithmetic Operators
-+ `+`
-  + `2 + 3` will give `5`
-  + `2px + 3` will give `5px`
-+ `-`
-  + `2 - 3` will give `-1`
-  + `2px - 3` will give `-1px`
-+ `*`
-  + `2 * 3` will give `6`
-  + `2px * 3` will give `6px`
-+ `/`
-  + `2 / 3` will give `0.6666666666666666`
-  + `2px / 3` will give `0.6666666666666666px`
++ `+`: `2px + 3` will give `5px`
++ `-`: `2px - 3` will give `-1px`
++ `*`: `2px * 3` will give `6px`
++ `/`: `2px / 3` will give `0.6666666666666666px`
++ `%`
++ `**`
+
+### 3.2 Comparison Operators
++ `==`
++ `!=`
++ `>`
++ `<`
++ `>=`
++ `<=`
++ `<=>`
+
+### 3.3 Assignment Operators
++ `=`
++ `+=`
++ `-=`
++ `*=`
++ `/=`
++ `%=`
++ `**=`
+
+### 3.4 Parallel Assignment
++ `a, b, c = 1, 2, 3`
++ `a, b = b, c`
+ 
+### 3.5 Bitwise Operators
++ `&`
++ `|`
++ `^`
++ `~`
++ `<<`
++ `>>`
+ 
+### 3.6 Logical Operators
++ `&&`
++ `||`
++ `!`
+ 
+### 3.7 Ternary operator
+`?:`
+
+### 3.8 Range operators
++ `..`
++ `...`
+ 
+### 3.9 defined? operators
