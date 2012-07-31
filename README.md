@@ -34,7 +34,7 @@ Compile to:
 ```
 
 ## 2. Variables
-The variable start with ```$```
+The variable start with `$`
 ```css
 $padding = 10px
 $margin-top = 5px
@@ -55,4 +55,5 @@ Compile to:
 ## 3. Operators
 ### 3.1 Arithmetic Operators
 `+`:
-
+  `2 + 3` will give `5`
+  `2px + 3` will give `5px`
