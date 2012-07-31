@@ -23,12 +23,12 @@ body .navbar {
 ### 1.2 Rule Sets
 ```css
 .foo, .bar
-  color: grey
+  color: #999
 ```
 Compile to:
 ```css
 .foo,
 .bar {
-  color: grey;
+  color: #999;
 }
 ```
