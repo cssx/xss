@@ -56,6 +56,4 @@ Compile to:
 ### 3.1 Arithmetic Operators
 ```+```:
 
-```2 + 3``` will give ```5```
-
-```2px + 3``` will give ```5px```
+```2 + 3```
