@@ -10,6 +10,7 @@ body
     position: fixed
     top: 0
 ```
+Compile to:
 ```css
 body {
   background: #ccc;
