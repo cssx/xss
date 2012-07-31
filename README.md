@@ -36,13 +36,18 @@ Compile to:
 ## 2. Variables
 The variable start with ```$```
 ```css
-$color = blue
-body
-  color: $color
+$padding = 10px
+$margin-top = 5px
+$margin-bottom = 10px
+$margin = $margin-top 0 $margin-bottom 0
+.foo
+  padding: $padding
+  margin: $margin
 ```
 Compile to:
 ```css
-body {
-  color: blue;
+.foo {
+  padding: 10px;
+  margin: 5px 0 10px 0;
 }
 ```
