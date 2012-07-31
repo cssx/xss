@@ -32,3 +32,17 @@ Compile to:
   color: #999;
 }
 ```
+
+## 2. Variables
+The variable start with ```$```
+```css
+$color = blue
+body
+  color: $color
+```
+Compile to:
+```css
+body {
+  color: blue;
+}
+```
