@@ -1,0 +1,67 @@
+module XSS
+  module Nodes
+    class AbstractNode
+
+      def self.inherited(clazz)
+        clazz.class_eval do
+          @_attrs = []
+
+          def self.attr(name)
+            attr_accessor name
+            @_attrs << name
+          end
+        end
+      end
+
+      def initialize(options = {})
+        options.each do |name, value|
+          self.send("#{name}=", value)
+        end
+      end
+
+      # def to_hash
+      #   hash = { '_type' => self.class.name.rpartition('::').last }
+      #   self.class.instance_variable_get('@_attrs').each do |attr|
+      #     value = self.send(attr)
+      #     hash[attr.to_s] = self.send(attr) if value != nil
+      #   end
+
+      #   hash
+      # end
+
+      def ==(other)
+        other.class == self.class && self.class.instance_variable_get('@_attrs').all?{ |attr| other.send(attr) == self.send(attr)}
+      end
+    end
+    
+    class Document < AbstractNode
+      attr :statements
+    end
+
+    class RuleSet < AbstractNode
+      attr :selector_group
+      attr :body
+    end
+
+    class Selector < AbstractNode
+      attr :items
+    end
+    
+    class SelectorItem < AbstractNode
+      attr :simple_selector
+      attr :combinator      
+    end
+    
+
+    class SimpleSelector < AbstractNode
+      attr :items
+    end
+
+    class TypeSelector < AbstractNode
+      attr :tag_name
+    end
+    
+    class RuleSetBody < AbstractNode
+    end
+  end
+end
