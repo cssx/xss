@@ -71,10 +71,10 @@ describe XSS::Parser, "selector" do
       end
     end
     
-    it "should parse attribute_selector with string-quoted value", :pending do
-      simple_selector = parse_simple_selector("[attribute-name='attr-value']")
-      simple_selector.should be_a(N::SimpleSelector)
-      simple_selector.items.should == ["[attribute-name='attr-value']"]
-    end
+    # it "should parse attribute_selector with string-quoted value", :pending do
+    #   simple_selector = parse_simple_selector("[attribute-name='attr-value']")
+    #   simple_selector.should be_a(N::SimpleSelector)
+    #   simple_selector.items.should == ["[attribute-name='attr-value']"]
+    # end
   end
 end

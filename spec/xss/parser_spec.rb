@@ -29,4 +29,49 @@ describe XSS::Parser do
       (0..2).each { |i| rule_set.selector_group[i].should be_a(N::Selector) }
     end
   end
+
+  describe "rule_set", "rule_set_body" do
+    it "should parse rule set body's statements" do
+      body = parse_rule_set_body('{ }')
+      body.should_not be_nil
+    end
+    
+    it "should parse properties" do
+      body = parse_rule_set_body('{ color: red; font :arial ; }')
+      body.statements.should have(2).items
+      body.statements[0].should be_a(N::Property)
+      body.statements[1].should be_a(N::Property)
+    end
+    
+    it "should parse latest property missing semicolon" do
+      body = parse_rule_set_body('{ color: red; font :arial }')
+      body.statements.should have(2).items
+      body.statements[0].should be_a(N::Property)
+      body.statements[1].should be_a(N::Property)
+    end
+    
+    it "should parse empty statement" do
+      body = parse_rule_set_body('{ color: red; ; font: arial; }')
+      body.statements.should have(3).items
+      body.statements[0].should be_a(N::Property)
+      body.statements[1].should be_a(N::EmptyStatement)
+      body.statements[2].should be_a(N::Property)
+    end
+    
+    it "should parse grouped-property" do
+      body = parse_rule_set_body('{ color: red; font: { family: arial; } padding: auto; }')
+      body.statements.should have(3).items
+      body.statements[0].should be_a(N::Property)
+      body.statements[1].should be_a(N::GroupedProperty)
+      body.statements[2].should be_a(N::Property)
+    end
+    
+    it "should parse nested rule set" do
+      body = parse_rule_set_body('{ color: red; a { font: arial; } padding: auto; }')
+      body.statements.should have(3).items
+      body.statements[0].should be_a(N::Property)
+      body.statements[1].should be_a(N::RuleSet)
+      body.statements[2].should be_a(N::Property)
+    end
+  end
 end

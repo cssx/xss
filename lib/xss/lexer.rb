@@ -15,18 +15,24 @@ module XSS
       end
     end
 
+    class SymbolToken < Token
+    end
+
     def initialize(input)
       @scanner = StringScanner.new(input)
+      @buf = []
     end
 
     def next_token
+      return @buf.shift if @buf.any?
+
       return nil if @scanner.eos?
       # skip_comment
       next_char = @scanner.peek(2)
       case next_char
       when '~=', '|=', '^=', '$=', '*='
         @scanner.pos = @scanner.pos + 2
-        return Token.new(next_char)
+        return SymbolToken.new(next_char)
       end
       
       next_char = @scanner.peek(1)
@@ -35,8 +41,20 @@ module XSS
         @scanner.pos = @scanner.pos + 1
         return Token.new(next_char)
       end
+
+      space = next_space
+      if space
+        next_char = @scanner.peek(1)
+        if next_char == ':' || next_char == '{' || next_char == ','
+          @scanner.pos = @scanner.pos + 1
+          return Token.new(next_char)
+        end
+        return space
+      else
+        return next_ident
+      end
       
-      return next_ident || next_space  
+      
     end
 
     private

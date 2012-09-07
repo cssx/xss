@@ -20,9 +20,13 @@ describe XSS::Lexer do
   it 'should parse tokens' do
     parse_tokens('div').should == [[:IDENT, 'div']]
     parse_tokens('  div     a  ').should == [:SPACE, [:IDENT, 'div'], :SPACE, [:IDENT, 'a'], :SPACE]
-    parse_tokens(%q{div.some-class#some-id { a: b; }}).should == [[:IDENT, 'div'], '.', [:IDENT, 'some-class'],
-      '#', [:IDENT, 'some-id'], :SPACE, '{', :SPACE, [:IDENT, 'a'], ':', :SPACE, [:IDENT, 'b'], ';', :SPACE, '}'
+    parse_tokens(%q{div.some-class#some-id{ a: b;}}).should == [[:IDENT, 'div'], '.', [:IDENT, 'some-class'],
+      '#', [:IDENT, 'some-id'], '{', :SPACE, [:IDENT, 'a'], ':', :SPACE, [:IDENT, 'b'], ';', '}'
     ]
+  end
+
+  it 'should combine space token and symbol token' do
+    parse_tokens('a , b { color : red } ').should == [[:IDENT, 'a'], ',', :SPACE, [:IDENT, 'b'], '{', :SPACE, [:IDENT, 'color'], ':', :SPACE, [:IDENT, 'red'], :SPACE, '}', :SPACE]
   end
 
   # it 'should skip comment'

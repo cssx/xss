@@ -40,6 +40,11 @@ module XSS
         
         selector.items.first.simple_selector
       end
+      
+      def parse_rule_set_body(source)
+        rule_set = parse_rule_set("div #{source}")
+        rule_set.body
+      end
     end
   end
 end

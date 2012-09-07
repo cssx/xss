@@ -52,16 +52,25 @@ module XSS
       attr :combinator      
     end
     
-
     class SimpleSelector < AbstractNode
       attr :items
     end
 
-    class TypeSelector < AbstractNode
-      attr :tag_name
+    class RuleSetBody < AbstractNode
+      attr :statements
     end
     
-    class RuleSetBody < AbstractNode
+    class EmptyStatement < AbstractNode
+    end
+    
+    class Property < AbstractNode
+      attr :name
+      attr :value
+    end
+    
+    class GroupedProperty < AbstractNode
+      attr :prefix
+      attr :body
     end
   end
 end
