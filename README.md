@@ -1,5 +1,8 @@
-xss
+XSS
 ===
+
+[https://secure.travis-ci.org/cssx/xss.png]
+[![Build Status](https://secure.travis-ci.org/cssx/xss.png)](http://travis-ci.org/cssx/xss)
 
 ## 1. Selectors
 ### 1.1 Indentation
