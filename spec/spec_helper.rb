@@ -2,6 +2,9 @@ $:.unshift File.dirname(__FILE__) + '/../lib'
 require 'xss'
 
 require 'support/parser_helper'
+require 'support/serializer_helper'
+
+N = XSS::Nodes
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

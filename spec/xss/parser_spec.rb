@@ -3,7 +3,6 @@ require 'spec_helper'
 
 describe XSS::Parser do
   include XSS::Rspec::ParserHelper
-  N = XSS::Nodes
   
   describe "document" do
     it "should parse document to statements" do

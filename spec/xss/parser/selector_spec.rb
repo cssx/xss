@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe XSS::Parser, "selector" do
   include XSS::Rspec::ParserHelper
-  N = XSS::Nodes
   
   context "general" do
     it "should parse selector" do
