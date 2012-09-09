@@ -74,7 +74,7 @@ module XSS
       node(:property, :name => name, :value => value )
     end
     self.grouped_property = seq(:name, ':', :rule_set_body) do |name, _, body|
-      node(:grouped_property)
+      node(:grouped_property, :name => name, :body => body)
     end
   end
   

@@ -69,7 +69,7 @@ module XSS
     end
     
     class GroupedProperty < AbstractNode
-      attr :prefix
+      attr :name
       attr :body
     end
   end
