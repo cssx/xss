@@ -1,59 +1,48 @@
-module XSS
-  class CSSSerializer
-    N = XSS::Nodes
+require 'xss/visitor'
 
+module XSS
+  class CSSSerializer < Visitor
     def initialize(document)
       @document = document
       @buf = []
     end
 
     def serialize()
-      serialize_document(@document)
+      visit(@document)
       @buf.join()
     end
 
     protected
-
-      def serialize_document(document)
-        document.statements.each do |statement|
-          serialize_statement(statement)
-        end
-      end
-
-      def serialize_statement(statement)
-        case statement
-        when N::RuleSet
-          serialize_rule_set(statement)
-        end
-      end
-
-      def serialize_rule_set(rule_set)
+      def visit_rule_set(rule_set)
         is_first = true
         rule_set.selector_group.each do |selector|
           @buf << ',' unless is_first
-          serialize_selector(selector)
+          visit(selector)
           is_first = false
         end
-        
-        @buf << '{'
+        visit(rule_set.body)
+      end
 
-        rule_set.body.statements.each do |property|
-          serialize_property(property)
+      def visit_selector_item(selector_item)
+        @buf << selector_item.combinator if selector_item.combinator
+        visit(selector_item.simple_selector)
+      end
+
+      def visit_simple_selector(simple_selector)
+        simple_selector.items.each do |element|
+          @buf << element
         end
+      end
 
+      def visit_rule_set_body(body)
+        @buf << '{'
+        body.statements.each do |statement|
+          visit(statement)
+        end
         @buf << '}'
       end
 
-      def serialize_selector(selector)
-        selector.items.each do |item|
-          @buf << item.combinator if item.combinator
-          item.simple_selector.items.each do |element|
-            @buf << element
-          end
-        end
-      end
-
-      def serialize_property(property)
+      def visit_property(property)
         @buf << property.name
         @buf << ':'
         @buf << property.value.to_s

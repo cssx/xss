@@ -10,6 +10,14 @@ module XSS
             attr_accessor name
             @_attrs << name
           end
+
+          def self.node_name
+            name.split('::').last.gsub(/[A-Z]/){ |c| "_#{c.downcase}" }[1..-1]
+          end
+
+          def self.attributes
+            @_attrs
+          end
         end
       end
 
@@ -19,18 +27,12 @@ module XSS
         end
       end
 
-      # def to_hash
-      #   hash = { '_type' => self.class.name.rpartition('::').last }
-      #   self.class.instance_variable_get('@_attrs').each do |attr|
-      #     value = self.send(attr)
-      #     hash[attr.to_s] = self.send(attr) if value != nil
-      #   end
-
-      #   hash
-      # end
-
       def ==(other)
         other.class == self.class && self.class.instance_variable_get('@_attrs').all?{ |attr| other.send(attr) == self.send(attr)}
+      end
+
+      def node_name
+        self.class.node_name
       end
     end
     
