@@ -1,20 +1,6 @@
 module XSS
   module Rspec
     module ParserHelper
-      # def node(type, options = {})
-      #   node_class = XSS::Nodes.const_get(type.to_s.split('_').map{ |p| p.capitalize }.join)
-      #   node = node_class.new
-      #   options.each do |name, value|
-      #     node.send("#{name}=", value)
-      #   end
-      # 
-      #   node
-      # end
-      # 
-      # def y(object)
-      #   puts object.to_yaml
-      # end
-
       def parse(source)
         parser = XSS::Parser.new(source)
         parser.parse
@@ -44,6 +30,13 @@ module XSS
       def parse_rule_set_body(source)
         rule_set = parse_rule_set("div #{source}")
         rule_set.body
+      end
+
+      def parse_property(source)
+        body = parse_rule_set_body("{#{source}}")
+        body.statements.should have(1).item
+        
+        body.statements.first
       end
     end
   end

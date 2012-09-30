@@ -1,5 +1,6 @@
 # require 'xss/generated_parser'
 require 'xss/lexer'
+require 'xss/values'
 require 'xss/nodes'
 require 'racc'
 
@@ -31,7 +32,6 @@ module XSS
                                seq(:os, '+', :os) { |_, _, _| '+' } | # adjacent sibling combinator
                                seq(:os, '~', :os) { |_, _, _| '~' } | # general sibling combinator
                                seq(:SPACE) { |_| ' ' }        # descendant combinator
-    # self.simple_selector = seq(:name)
     self.simple_selector = many1(:simple_selector_item) do |items|
       node(:simple_selector, :items => items)
     end
@@ -70,12 +70,14 @@ module XSS
       node(:empty_statement)
     end
     self.property = seq(:incomplete_property, ';', :os)
-    self.incomplete_property = seq(:name, ':', :os, :name, :os) do |name, _, _, value, _,|
+    self.incomplete_property = seq(:name, ':', :os, :expression, :os) do |name, _, _, value, _,|
       node(:property, :name => name, :value => value )
     end
     self.grouped_property = seq(:name, ':', :rule_set_body) do |name, _, body|
       node(:grouped_property, :name => name, :body => body)
     end
+
+    self.expression = seq(:name) | seq(:NUMBER)# | seq(:COLOR)
   end
   
   # $DEBUG = true

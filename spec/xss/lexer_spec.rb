@@ -23,6 +23,7 @@ describe XSS::Lexer do
     parse_tokens(%q{div.some-class#some-id{ a: b;}}).should == [[:IDENT, 'div'], '.', [:IDENT, 'some-class'],
       '#', [:IDENT, 'some-id'], '{', :SPACE, [:IDENT, 'a'], ':', :SPACE, [:IDENT, 'b'], ';', '}'
     ]
+    parse_tokens(%q{div{top:10}}).should == [[:IDENT, 'div'], '{', [:IDENT, 'top'], ':', [:NUMBER, V::Number.new(10)], '}']
   end
 
   it 'should combine space token and symbol token' do

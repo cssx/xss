@@ -1,7 +1,11 @@
+require 'xss/values'
+
 module XSS
-  # supported token types: :IDENT, :NUMBER, :LENGTH, :SPACE
+  # supported token types: :IDENT, :NUMBER, :SPACE
 
   class Lexer
+    V = XSS::Values
+
     class Token
       attr_accessor :type, :value, :line, :pos
 
@@ -51,7 +55,7 @@ module XSS
         end
         return space
       else
-        return next_ident
+        return next_ident || next_number
       end
       
       
@@ -59,13 +63,20 @@ module XSS
 
     private
       def next_ident
-        value = @scanner.scan(/[\-a-zA-Z0-9_]+/)
+        value = @scanner.scan(/[_\-a-zA-Z][\-a-zA-Z0-9_]*/)
         Token.new(:IDENT, value) if value != nil
       end
 
       def next_space
         value = @scanner.scan(/[ \n\r]+/)
         Token.new(:SPACE, value) if value != nil
+      end
+
+      def next_number
+        s = @scanner.scan(/[0-9]+/)
+        return Token.new(:NUMBER, V::Number.new(s.to_i)) if s != nil        
+
+        # Token.new(:NUMBER, value.to_f) if value != nil
       end
 
       def skip_comment
