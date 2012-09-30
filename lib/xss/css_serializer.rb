@@ -56,7 +56,7 @@ module XSS
       def serialize_property(property)
         @buf << property.name
         @buf << ':'
-        @buf << property.value
+        @buf << property.value.to_s
         @buf << ';'
       end
   end

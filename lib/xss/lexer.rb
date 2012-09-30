@@ -41,7 +41,7 @@ module XSS
       
       next_char = @scanner.peek(1)
       case next_char 
-      when '#', '.', '*', '[', ']', '{', '}', ':', ';', ',', '>', '+', '=', '~'
+      when '#', '.', '*', '[', ']', '{', '}', ':', ';', ',', '>', '+', '=', '~', '%'
         @scanner.pos = @scanner.pos + 1
         return Token.new(next_char)
       end
@@ -74,9 +74,7 @@ module XSS
 
       def next_number
         s = @scanner.scan(/[0-9]+/)
-        return Token.new(:NUMBER, V::Number.new(s.to_i)) if s != nil        
-
-        # Token.new(:NUMBER, value.to_f) if value != nil
+        return Token.new(:NUMBER, s) if s != nil
       end
 
       def skip_comment

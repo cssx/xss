@@ -16,6 +16,11 @@ describe XSS::CSSSerializer do
     serialize_rule_set(rule_set).should == 'div,a{color:red;text-align:center;}'
   end
 
+  it 'should serialize property with number' do
+    property = parse_property('top: 1px;')
+    serialize_property(property).should == 'top:1px;'
+  end
+
   it 'should serialize selector with combinators' do
     selector = parse_selector('a b > c ~ d + e')
     serialize_selector(selector).should == 'a b>c~d+e'

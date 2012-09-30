@@ -14,4 +14,14 @@ describe XSS::Parser, "selector" do
     property = parse_property('top: 123')
     property.value.should == V::Number.new(123)
   end
+
+  it 'should parse property with number and unit as value' do
+    property = parse_property('top: 123px')
+    property.value.should == V::Number.new(123, 'px')
+  end
+
+  it 'should parse property with number and percentage' do
+    property = parse_property('top: 10%')
+    property.value.should == V::Number.new(10, '%')
+  end
 end

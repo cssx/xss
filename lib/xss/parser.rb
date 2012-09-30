@@ -77,7 +77,10 @@ module XSS
       node(:grouped_property, :name => name, :body => body)
     end
 
-    self.expression = seq(:name) | seq(:NUMBER)# | seq(:COLOR)
+    self.expression = seq(:name) | seq(:number)# | seq(:COLOR)
+    self.number = seq(:NUMBER, :IDENT) { |value, unit| V::Number.new(value.to_i, unit) } |
+                  seq(:NUMBER, '%') { |value, _| V::Number.new(value.to_i, '%') } |
+                  seq(:NUMBER) { |value| V::Number.new(value.to_i) }
   end
   
   # $DEBUG = true

@@ -22,6 +22,10 @@ module XSS
       def ==(other)
         other.kind_of?(Number) && self.value == other.value && self.unit == other.unit
       end
+
+      def to_s
+        "#{value}#{unit}"
+      end
     end
   end
 end
